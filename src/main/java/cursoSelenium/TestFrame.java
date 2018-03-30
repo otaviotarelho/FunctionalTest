@@ -42,7 +42,7 @@ public class TestFrame {
 		alert.accept();
 		
 		dsl.switchToDefaultContent();
-		dsl.escreve("elementosForm:nome", text);
+		dsl.write("elementosForm:nome", text);
 		
 	}
 }

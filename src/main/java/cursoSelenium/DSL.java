@@ -16,11 +16,11 @@ public class DSL {
 		this.driver = driver;
 	}
 
-	public void escreve(String idCampo, String texto) {
-		escreve(By.id(idCampo), texto);
+	public void write(String idCampo, String texto) {
+		write(By.id(idCampo), texto);
 	}
 	
-	public void escreve(By by, String texto) {
+	public void write(By by, String texto) {
 		findElement(by).sendKeys(texto);
 	}
 	
@@ -84,5 +84,21 @@ public class DSL {
 	
 	private WebElement findElement(By by) {
 		return driver.findElement(by);
+	}
+	
+	public String alertAceptAndReturnText() {
+		Alert alert = this.switchToAlert();
+		String text = alert.getText();
+		alert.accept();
+		
+		return text;
+	}
+	
+	public String alertDismissAndReturnText() {
+		Alert alert = this.switchToAlert();
+		String text = alert.getText();
+		alert.dismiss();
+		
+		return text;
 	}
 }

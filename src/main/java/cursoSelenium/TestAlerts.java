@@ -41,7 +41,7 @@ public class TestAlerts {
 		
 		alert.dismiss();
 		
-		dsl.escreve("elementosForm:nome", AlertText);
+		dsl.write("elementosForm:nome", AlertText);
 	}
 	
 	@Test

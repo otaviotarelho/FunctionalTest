@@ -31,13 +31,13 @@ public class TestWindow {
 		
 		dsl.click("buttonPopUpEasy");
 		dsl.switchToWindows("Popup");
-		dsl.escreve(By.tagName("textarea"), "Deu certo?");
+		dsl.write(By.tagName("textarea"), "Deu certo?");
 		
 		driver.close();
 		
 		dsl.switchToWindows("");
 		
-		dsl.escreve(By.tagName("textarea"), "Fechou janela??");
+		dsl.write(By.tagName("textarea"), "Fechou janela??");
 		
 	}
 	
@@ -46,12 +46,12 @@ public class TestWindow {
 
 		dsl.click("buttonPopUpHard");
 		dsl.switchToWindows(driver.getWindowHandles().toArray()[1].toString());
-		dsl.escreve(By.tagName("textarea"), "Deu certo?");
+		dsl.write(By.tagName("textarea"), "Deu certo?");
 		
 		driver.close();
 		
 		dsl.switchToWindows("");
-		dsl.escreve(By.tagName("textarea"), "Fechou janela??");
+		dsl.write(By.tagName("textarea"), "Fechou janela??");
 		
 	}
 }

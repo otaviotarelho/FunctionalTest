@@ -17,6 +17,7 @@ public class TestCampoTreinamento {
 	private WebDriver driver;
 	private DSL dsl;
 	
+	
 	@Before
 	public void init() {
 		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
@@ -27,20 +28,20 @@ public class TestCampoTreinamento {
 	}
 	
 	@After
-	public void destroy() {
+	public void destroy(){
 		driver.quit();
 	}
 	
 	@Test
 	public void shouldWriteInTextField() {
-		dsl.escreve("elementosForm:nome", "Texto a ser escrito");
+		dsl.write("elementosForm:nome", "Texto a ser escrito");
 		Assert.assertEquals("Texto a ser escrito", dsl.obterValorCampoById("elementosForm:nome"));
 		
 	}
 	
 	@Test
 	public void shouldWriteInTextArea(){
-		dsl.escreve("elementosForm:sugestoes", "Texto a ser escrito no textArea\n\n outra linha \n\n ultima linha");
+		dsl.write("elementosForm:sugestoes", "Texto a ser escrito no textArea\n\n outra linha \n\n ultima linha");
 		Assert.assertEquals("Texto a ser escrito no textArea\n\n outra linha \n\n ultima linha", dsl.obterValorCampoById("elementosForm:sugestoes"));
 		
 	}
