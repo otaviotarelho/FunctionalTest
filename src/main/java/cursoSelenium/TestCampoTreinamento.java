@@ -168,7 +168,6 @@ public class TestCampoTreinamento {
 	}
 	
 	@Test
-	@Ignore
 	public void ShouldInterectWithAnchorWithoutId() {
 		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
 		WebDriver driver = new ChromeDriver();
@@ -177,7 +176,26 @@ public class TestCampoTreinamento {
 		
 		driver.findElement(By.linkText("Voltar")).click();
 		
-		Assert.fail();
+		Assert.assertEquals("Voltou!", driver.findElement(By.id("resultado")).getText());
+		
+		driver.quit();
+	}
+	
+	@Test
+	public void ShouldGetTextInThePage() {
+		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
+		
+		/*boolean contains = driver.findElement(By.tagName("body")).getText().contains("Campo de Treinamento");
+		
+		Assert.assertTrue(contains);*/
+
+		
+		Assert.assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());
+		// wrong Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", driver.findElement(By.tagName("span")).getText());
+		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", driver.findElement(By.className("facilAchar")).getText());
 		
 		driver.quit();
 	}
