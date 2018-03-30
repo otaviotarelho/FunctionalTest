@@ -1,24 +1,39 @@
 package cursoSelenium;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestAlerts {
 	
-	@Test
-	public void shouldInteractWithSimpleAlert() {
+	private WebDriver driver;
+	private DSL dsl;
+	
+	@Before
+	public void init() {
 		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		WebDriver driver = new ChromeDriver();
+		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
-	
-		driver.findElement(By.id("alert")).click();
 		
-		Alert alert = driver.switchTo().alert();
+		dsl = new DSL(driver);
+	}
+	
+	@After
+	public void destroy() {
+		driver.quit();
+	}
+	
+	@Test
+	public void shouldInteractWithSimpleAlert() {
+	
+		dsl.click("alert");
+		
+		Alert alert = dsl.switchToAlert();
 		
 		String AlertText = alert.getText();
 		
@@ -26,19 +41,15 @@ public class TestAlerts {
 		
 		alert.dismiss();
 		
-		driver.findElement(By.id("elementosForm:nome")).sendKeys(AlertText);
+		dsl.escreve("elementosForm:nome", AlertText);
 	}
 	
 	@Test
 	public void shouldInteractWithConfirmAlert() {
-		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
 		
-		driver.findElement(By.id("confirm")).click();
+		dsl.click("confirm");
 		
-		Alert alert = driver.switchTo().alert();
+		Alert alert = dsl.switchToAlert();
 		
 		Assert.assertEquals("Confirm Simples", alert.getText());
 		
@@ -48,9 +59,9 @@ public class TestAlerts {
 		
 		alert.accept();
 		
-		driver.findElement(By.id("confirm")).click();
+		dsl.click("confirm");
 		
-		alert = driver.switchTo().alert();
+		alert = dsl.switchToAlert();
 		
 		Assert.assertEquals("Confirm Simples", alert.getText());
 		
@@ -60,19 +71,14 @@ public class TestAlerts {
 		
 		alert.accept();
 		
-		driver.quit();
 	}
 	
 	@Test
 	public void shouldInteractWithPromptAlert() {
-		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
+
+		dsl.click("prompt");
 		
-		driver.findElement(By.id("prompt")).click();
-		
-		Alert alert = driver.switchTo().alert();
+		Alert alert = dsl.switchToAlert();
 		
 		Assert.assertEquals("Digite um numero", alert.getText());
 		
@@ -88,6 +94,5 @@ public class TestAlerts {
 		
 		alert.accept();
 		
-		driver.quit();
 	}
 }

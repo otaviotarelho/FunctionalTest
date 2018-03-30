@@ -1,53 +1,57 @@
 package cursoSelenium;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestWindow {
-
-	@Test
-	public void shouldInteractWithWindow() {
+	private WebDriver driver;
+	private DSL dsl;
+	
+	@Before
+	public void init() {
 		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		WebDriver driver = new ChromeDriver();
+		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
 		
-		driver.findElement(By.id("buttonPopUpEasy")).click();
-		
-		driver.switchTo().window("Popup");
-		
-		driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
-		
-		driver.close();
-		
-		driver.switchTo().window("");
-		
-		driver.findElement(By.tagName("textarea")).sendKeys("Fechou janela??");
-		
+		dsl = new DSL(driver);
+	}
+	
+	@After
+	public void destroy() {
 		driver.quit();
 	}
 	
 	@Test
-	public void shouldInteractWithWindowWithoutId() {
-		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
+	public void shouldInteractWithWindow() {
 		
-		driver.findElement(By.id("buttonPopUpHard")).click();
-		
-		driver.switchTo().window(driver.getWindowHandles().toArray()[1].toString());
-		
-		driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
+		dsl.click("buttonPopUpEasy");
+		dsl.switchToWindows("Popup");
+		dsl.escreve(By.tagName("textarea"), "Deu certo?");
 		
 		driver.close();
 		
-		driver.switchTo().window("");
+		dsl.switchToWindows("");
 		
-		driver.findElement(By.tagName("textarea")).sendKeys("Fechou janela??");
+		dsl.escreve(By.tagName("textarea"), "Fechou janela??");
 		
-		driver.quit();
+	}
+	
+	@Test
+	public void shouldInteractWithWindowWithoutId() {
+
+		dsl.click("buttonPopUpHard");
+		dsl.switchToWindows(driver.getWindowHandles().toArray()[1].toString());
+		dsl.escreve(By.tagName("textarea"), "Deu certo?");
+		
+		driver.close();
+		
+		dsl.switchToWindows("");
+		dsl.escreve(By.tagName("textarea"), "Fechou janela??");
+		
 	}
 }
