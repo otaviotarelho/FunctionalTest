@@ -1,4 +1,4 @@
-package cursoSelenium;
+package com.otaviotarelho.tests;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+
+import com.otaviotarelho.helpers.DSL;
 
 public class TestCampoTreinamento {
 	

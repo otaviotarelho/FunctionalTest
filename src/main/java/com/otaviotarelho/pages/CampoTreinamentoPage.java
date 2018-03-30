@@ -1,6 +1,8 @@
-package cursoSelenium;
+package com.otaviotarelho.pages;
 
 import org.openqa.selenium.WebDriver;
+
+import com.otaviotarelho.helpers.DSL;
 
 public class CampoTreinamentoPage {
 	

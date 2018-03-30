@@ -1,4 +1,4 @@
-package cursoSelenium;
+package com.otaviotarelho.tests;
 
 import org.junit.After;
 import org.junit.Assert;

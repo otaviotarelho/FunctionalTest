@@ -1,4 +1,4 @@
-package cursoSelenium;
+package com.otaviotarelho.tests;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -9,9 +9,15 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.otaviotarelho.helpers.DSL;
+import com.otaviotarelho.pages.CampoTreinamentoPage;
+
 
 public class TestCadastro {
 	
+	private static final String ESCOLARIDADE_MESTRADO = "Mestrado";
+	private static final String SOBRENOME = "Tarelho";
+	private static final String NOME = "Otavio";
 	private WebDriver driver;
 	private DSL dsl;
 	private CampoTreinamentoPage page;
@@ -33,17 +39,17 @@ public class TestCadastro {
 
 	@Test
 	public void deveRealizarCadastroComSucesso(){
-		page.setNome("Wagner");
-		page.setSobrenome("Costa");
+		page.setNome(NOME);
+		page.setSobrenome(SOBRENOME);
 		page.setSexoMasculino();
 		page.setComidaPizza();
-		page.setEscolaridade("Mestrado");
+		page.setEscolaridade(ESCOLARIDADE_MESTRADO);
 		page.setEsporte("Natacao");
 		page.signup();
 		
 		Assert.assertTrue(page.getResultadoCadastro().startsWith("Cadastrado!"));
-		Assert.assertTrue(page.getRegistredName().endsWith("Wagner"));
-		Assert.assertEquals("Sobrenome: Costa", page.getRegistredSobrenome());
+		Assert.assertTrue(page.getRegistredName().endsWith(NOME));
+		Assert.assertEquals("Sobrenome: Tarelho", page.getRegistredSobrenome());
 		Assert.assertEquals("Sexo: Masculino", page.getRegistredSexo());
 		Assert.assertEquals("Comida: Pizza", page.getRegistredComida());
 		Assert.assertEquals("Escolaridade: mestrado", page.getRegistredEscolaridade());
@@ -70,8 +76,8 @@ public class TestCadastro {
 	
 	@Test
 	public void deveValidarSexoObrigatorio(){
-		page.setNome("Nome qualquer");
-		page.setSobrenome("Sobrenome qualquer");
+		page.setNome(NOME);
+		page.setSobrenome(SOBRENOME);
 		page.signup();
 		
 		Assert.assertEquals("Sexo eh obrigatorio", dsl.alertAceptAndReturnText());
@@ -79,8 +85,8 @@ public class TestCadastro {
 	
 	@Test
 	public void deveValidarComidaVegetariana(){
-		page.setNome("Nome qualquer");
-		page.setSobrenome("Sobrenome qualquer");
+		page.setNome(NOME);
+		page.setSobrenome(SOBRENOME);
 		page.setSexoFeminino();
 		page.setComidaCarne();
 		page.setComidaVegetariano();
@@ -90,8 +96,8 @@ public class TestCadastro {
 	
 	@Test
 	public void deveValidarEsportistaIndeciso(){
-		page.setNome("Nome qualquer");
-		page.setSobrenome("Sobrenome qualquer");
+		page.setNome(NOME);
+		page.setSobrenome(SOBRENOME);
 		page.setSexoFeminino();
 		page.setComidaCarne();
 		page.setEsporte("Karate", "O que eh esporte?");

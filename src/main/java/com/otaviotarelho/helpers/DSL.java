@@ -1,4 +1,4 @@
-package cursoSelenium;
+package com.otaviotarelho.helpers;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
