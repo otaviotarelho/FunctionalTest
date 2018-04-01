@@ -180,5 +180,9 @@ public class TestCampoTreinamento {
 		WebElement elemento = driver.findElement(By.id("elementosForm:nome"));
 		js.executeScript("arguments[0].style.border = arguments[1]", elemento, "solid 4px red");
 		
+		//scroll
+		WebElement frame = driver.findElement(By.id("frame2"));
+		dsl.executeJavascript("window.scrollBy(0, arguments[0])", frame.getLocation().y);
+		
 	}
 }
