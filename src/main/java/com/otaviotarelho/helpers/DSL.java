@@ -2,6 +2,7 @@ package com.otaviotarelho.helpers;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.TargetLocator;
 import org.openqa.selenium.WebElement;
@@ -100,5 +101,10 @@ public class DSL {
 		alert.dismiss();
 		
 		return text;
+	}
+	
+	public Object executeJavascript(String command, Object... params) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return js.executeScript(command, params);
 	}
 }

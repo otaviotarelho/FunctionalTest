@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -31,7 +32,7 @@ public class TestCampoTreinamento {
 	
 	@After
 	public void destroy(){
-		driver.quit();
+		//driver.quit();
 	}
 	
 	@Test
@@ -165,6 +166,19 @@ public class TestCampoTreinamento {
 		Assert.assertEquals("Campo de Treinamento", dsl.getText(By.tagName("h3")));
 		// wrong Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", driver.findElement(By.tagName("span")).getText());
 		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", dsl.getText(By.className("facilAchar")));
+		
+	}
+	
+	@Test
+	public void testJavaScript() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		//js.executeScript("alert('testnadoJavascript')");
+		
+		js.executeScript("document.getElementById('elementosForm:nome').value = 'otavio'");
+		
+		
+		WebElement elemento = driver.findElement(By.id("elementosForm:nome"));
+		js.executeScript("arguments[0].style.border = arguments[1]", elemento, "solid 4px red");
 		
 	}
 }
