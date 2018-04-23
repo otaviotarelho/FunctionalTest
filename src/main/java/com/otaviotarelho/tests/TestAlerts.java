@@ -1,33 +1,30 @@
 package com.otaviotarelho.tests;
 
+import static com.otaviotarelho.core.DriverFactory.getDriver;
+import static com.otaviotarelho.core.DriverFactory.killDriver;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.otaviotarelho.helpers.DSL;
+import com.otaviotarelho.core.DSL;
 
 public class TestAlerts {
 	
-	private WebDriver driver;
 	private DSL dsl;
 	
 	@Before
 	public void init() {
-		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
+		getDriver().get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
 		
-		dsl = new DSL(driver);
+		dsl = new DSL();
 	}
 	
 	@After
 	public void destroy() {
-		driver.quit();
+		killDriver();
 	}
 	
 	@Test

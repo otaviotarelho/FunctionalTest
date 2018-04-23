@@ -1,22 +1,16 @@
-package com.otaviotarelho.helpers;
+package com.otaviotarelho.core;
+
+import static com.otaviotarelho.core.DriverFactory.getDriver;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.TargetLocator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class DSL {
 	
-	private WebDriver driver;
-	
-	
-	public DSL(WebDriver driver) {
-		this.driver = driver;
-	}
-
 	public void write(String idCampo, String texto) {
 		write(By.id(idCampo), texto);
 	}
@@ -80,11 +74,11 @@ public class DSL {
 	}
 	
 	private TargetLocator getSwitch() {
-		return driver.switchTo();
+		return getDriver().switchTo();
 	}
 	
 	private WebElement findElement(By by) {
-		return driver.findElement(by);
+		return getDriver().findElement(by);
 	}
 	
 	public String alertAceptAndReturnText() {
@@ -104,7 +98,7 @@ public class DSL {
 	}
 	
 	public Object executeJavascript(String command, Object... params) {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		return js.executeScript(command, params);
 	}
 	

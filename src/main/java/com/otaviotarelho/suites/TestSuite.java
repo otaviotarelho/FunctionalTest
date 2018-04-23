@@ -1,23 +1,22 @@
 package com.otaviotarelho.suites;
 
+import static com.otaviotarelho.core.DriverFactory.killDriver;
+
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.otaviotarelho.tests.TestAlerts;
 import com.otaviotarelho.tests.TestCadastro;
-import com.otaviotarelho.tests.TestCampoTreinamento;
-import com.otaviotarelho.tests.TestFrame;
-import com.otaviotarelho.tests.TestWindow;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	TestCadastro.class,
-	TestCampoTreinamento.class,
-	TestAlerts.class,
-	TestFrame.class,
-	TestWindow.class
+	TestCadastro.class
 })
 public class TestSuite {
-
+	
+	@AfterClass
+	public static void destroy() {
+		killDriver();
+	}
 }

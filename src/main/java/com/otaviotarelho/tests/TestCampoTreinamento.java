@@ -1,38 +1,29 @@
 package com.otaviotarelho.tests;
 
+import static com.otaviotarelho.core.DriverFactory.getDriver;
+
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import com.otaviotarelho.helpers.DSL;
+import com.otaviotarelho.core.BaseTest;
+import com.otaviotarelho.core.DSL;
 
-public class TestCampoTreinamento {
+public class TestCampoTreinamento extends BaseTest{
 	
-	private WebDriver driver;
 	private DSL dsl;
 	
 	
 	@Before
 	public void init() {
-		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
-	}
-	
-	@After
-	public void destroy(){
-		//driver.quit();
+		getDriver().get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
+		dsl = new DSL();
 	}
 	
 	@Test
@@ -78,7 +69,7 @@ public class TestCampoTreinamento {
 	@Test
 	public void shouldVerifyAvailableValuesFromCombo() {
 		
-		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
+		WebElement element = getDriver().findElement(By.id("elementosForm:escolaridade"));
 		
 		Select combo = new Select(element);
 		
@@ -112,16 +103,14 @@ public class TestCampoTreinamento {
 	
 	@Test
 	public void ShouldSelectMultipleCombo() {
-		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
+
+		getDriver().get("file:///"+ System.getProperty("user.dir") +"/src/main/resources/componentes.html");
 		
 		dsl.selectFromComboBox("elementosForm:esportes", "Natacao");
 		dsl.selectFromComboBox("elementosForm:esportes", "Corrida");
 		dsl.selectFromComboBox("elementosForm:esportes", "O que eh esporte?");
 		
-		WebElement element = driver.findElement(By.id("elementosForm:esportes"));
+		WebElement element = getDriver().findElement(By.id("elementosForm:esportes"));
 		Select combo = new Select(element);
 		
 		List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
@@ -140,7 +129,7 @@ public class TestCampoTreinamento {
 		
 		dsl.click("buttonSimple");
 		
-		WebElement findElement = driver.findElement(By.id("buttonSimple"));
+		WebElement findElement = getDriver().findElement(By.id("buttonSimple"));
 		
 		Assert.assertEquals("Obrigado!", findElement.getAttribute("value"));
 		
@@ -171,17 +160,17 @@ public class TestCampoTreinamento {
 	
 	@Test
 	public void testJavaScript() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		//js.executeScript("alert('testnadoJavascript')");
 		
 		js.executeScript("document.getElementById('elementosForm:nome').value = 'otavio'");
 		
 		
-		WebElement elemento = driver.findElement(By.id("elementosForm:nome"));
+		WebElement elemento = getDriver().findElement(By.id("elementosForm:nome"));
 		js.executeScript("arguments[0].style.border = arguments[1]", elemento, "solid 4px red");
 		
 		//scroll
-		WebElement frame = driver.findElement(By.id("frame2"));
+		WebElement frame = getDriver().findElement(By.id("frame2"));
 		dsl.executeJavascript("window.scrollBy(0, arguments[0])", frame.getLocation().y);
 		
 	}

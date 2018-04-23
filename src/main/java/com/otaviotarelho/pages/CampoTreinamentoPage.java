@@ -1,16 +1,8 @@
 package com.otaviotarelho.pages;
 
-import org.openqa.selenium.WebDriver;
+import com.otaviotarelho.core.BasePage;
 
-import com.otaviotarelho.helpers.DSL;
-
-public class CampoTreinamentoPage {
-	
-	private DSL dsl;
-
-	public CampoTreinamentoPage(WebDriver driver) {
-		this.dsl = new DSL(driver);
-	}
+public class CampoTreinamentoPage extends BasePage {
 	
 	public void setNome(String nome) {
 		dsl.write("elementosForm:nome", nome);

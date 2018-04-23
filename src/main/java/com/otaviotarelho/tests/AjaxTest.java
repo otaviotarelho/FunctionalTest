@@ -1,41 +1,39 @@
+package com.otaviotarelho.tests;
+import static com.otaviotarelho.core.DriverFactory.getDriver;
+import static com.otaviotarelho.core.DriverFactory.killDriver;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.otaviotarelho.helpers.DSL;
+import com.otaviotarelho.core.DSL;
 
 
 public class AjaxTest {
 	
-	private WebDriver driver;
 	private DSL dsl;
 	
 	@Before
 	public void init() {
-		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("https://www.primefaces.org/showcase/ui/ajax/basic.xhtml");
+		getDriver().get("https://www.primefaces.org/showcase/ui/ajax/basic.xhtml");
 		
-		dsl = new DSL(driver);
+		dsl = new DSL();
 	}
 	
 	@After
 	public void destroy() {
-		driver.quit();
+		killDriver();
 	}
 	
 	@Test
 	public void testAjax() {
 		dsl.write("j_idt116:name", "teste");
 		dsl.click("j_idt116:j_idt119");
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		WebDriverWait wait = new WebDriverWait(getDriver(), 30);
 		wait.until(ExpectedConditions.textToBe(By.id("j_idt116:display"), "teste"));
 		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("")));
 		Assert.assertEquals("teste", dsl.getText("j_idt116:display"));

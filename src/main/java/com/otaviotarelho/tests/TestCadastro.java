@@ -1,40 +1,30 @@
 package com.otaviotarelho.tests;
 
-import org.junit.After;
+import static com.otaviotarelho.core.DriverFactory.getDriver;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.otaviotarelho.helpers.DSL;
+import com.otaviotarelho.core.BaseTest;
+import com.otaviotarelho.core.DSL;
 import com.otaviotarelho.pages.CampoTreinamentoPage;
 
 
-public class TestCadastro {
+public class TestCadastro extends BaseTest{
 	
 	private static final String ESCOLARIDADE_MESTRADO = "Mestrado";
 	private static final String SOBRENOME = "Tarelho";
 	private static final String NOME = "Otavio";
-	private WebDriver driver;
 	private DSL dsl;
 	private CampoTreinamentoPage page;
 
 	@Before
 	public void inicializa(){
-		System.setProperty("webdriver.chrome.driver","/Users/otaviortbarros/Developer/Selenium/chromedriver");
-		driver = new ChromeDriver();
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
-		page = new CampoTreinamentoPage(driver);
-	}
-	
-	@After
-	public void finaliza(){
-		driver.quit();
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
+		page = new CampoTreinamentoPage();
 	}
 
 	@Test
